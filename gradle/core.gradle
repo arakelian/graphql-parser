@@ -1,5 +1,5 @@
 // Generic helper .gradle file copied between projects
-// - Probably easier way to do this, maybe a Gradle plugin, but still learning Gradle.
+// Note: There is probably easier way to do this, maybe a Gradle plugin, but still learning Gradle.
 
 task wrapper(type: Wrapper) {
     gradleVersion = '3.5'
@@ -33,18 +33,21 @@ ext {
 }
 
 // Maven Central requires Javadocs
+
 task javadocJar(type: Jar, dependsOn:classes) {
     classifier = 'javadoc'
     from javadoc
 }
 
 // always nice to have source code available in other projects
+
 task sourcesJar(type:Jar, dependsOn:classes) {
     classifier = 'sources'
     from sourceSets.main.allSource
 }
 
 // other projects may want to extend our unit tests
+
 task testJar(type:Jar, dependsOn:testClasses) {
     classifier = 'tests'
     from sourceSets.test.output
@@ -95,8 +98,8 @@ test {
 
 // Custom Eclipse .classpath generation to use project references instead of .jar references; this
 // allows us to do refactoring in Eclipse across projects
-//
 // see: https://docs.gradle.org/current/dsl/org.gradle.plugins.ide.eclipse.model.EclipseClasspath.html
+
 eclipse {
     classpath {
         // override default 'bin'
@@ -190,11 +193,14 @@ task generateGitProperties {
     }
 }
 
+// this snippet is used for deployment to Maven Central
+
 if (project.hasProperty('nexusUsername')) {
     signing {
         sign configurations.archives
     }
 
+	// note: nexus credentials are typically kept in ~/.gradle/gradle.properties
     uploadArchives {
         repositories {
             // see: http://central.sonatype.org/pages/gradle.html
@@ -215,6 +221,13 @@ if (project.hasProperty('nexusUsername')) {
                     name project.name
                     packaging 'jar'
                     description project.description
+
+                    url 'https://github.com/arakelian/' + project.name
+                    scm {
+                        connection 'scm:git:https://github.com/arakelian/' + project.name + '.git'
+                        developerConnection 'scm:git:git@github.com:arakelian/' + project.name + '.git'
+                        url 'https://github.com/arakelian/' + project.name + '.git'
+                    }
 
                     licenses {
                         license {
@@ -237,15 +250,27 @@ if (project.hasProperty('nexusUsername')) {
     }
 }
 
+// replace version number in README file
+
+task fixREADME() {
+	doLast {
+		def file = new File('README.md')
+		def text = file.text
+		file.withWriter { w ->
+		  w << text.replaceAll("[0-9]+\\.[0-9]+\\.[0-9]+(-SNAPSHOT)?", project.version)
+		}
+	}
+}
 
 // This code allows us to define aliases, such as "all", so that when we do "gradle all",
 // we can substitute in a series of other gradle tasks
-//
 // see: https://caffeineinduced.wordpress.com/2015/01/25/run-a-list-of-gradle-tasks-in-specific-order/
+
 def expandedTaskList = []
 
 // gradle respects ordering of tasks specified on command line, so we replace shortcuts
 // with equivalent commands as though they were specified by user
+
 gradle.startParameter.taskNames.each {
    expandedTaskList << (buildAliases[it] ? buildAliases[it] : it)
 }

@@ -30,25 +30,6 @@ group   = 'com.arakelian'
 
 apply from: "gradle/core.gradle"
 
-// this snippet is used for deployment to Maven Central
-// note: nexus credentials are kept in ~/.gradle/gradle.properties
-if (project.hasProperty('nexusUsername')) {
-    uploadArchives {
-        repositories {
-            mavenDeployer {
-                pom.project {
-                    url "https://github.com/arakelian/${project.name}"
-                    scm {
-                        connection "scm:git:https://github.com/arakelian/${project.name}.git"
-                        developerConnection "scm:git:git@github.com:arakelian/${project.name}.git"
-                        url "https://github.com/arakelian/${project.name}.git"
-                    }
-                }
-            }
-        }
-    }
-}
-
 dependencies {
 	antlr 'org.antlr:antlr4:4.7'
     compile 'org.antlr:antlr4-runtime:4.7'

@@ -31,7 +31,7 @@ Add the following to your `pom.xml`:
 <dependency>
     <groupId>com.arakelian</groupId>
     <artifactId>graphql-parser</artifactId>
-    <version>1.0.4</version>
+    <version>1.0.5-SNAPSHOT</version>
     <scope>test</scope>
 </dependency>
 ```
@@ -46,7 +46,7 @@ repositories {
 }
 
 dependencies {
-  testCompile 'com.arakelian:graphql-parser:1.0.4'
+  testCompile 'com.arakelian:graphql-parser:1.0.5-SNAPSHOT'
 }
 ```
 
