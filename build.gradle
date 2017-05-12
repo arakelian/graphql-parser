@@ -12,8 +12,17 @@ plugins {
     id 'signing'
 	id 'eclipse'
 	id 'idea'
-	id 'com.github.ben-manes.versions' version '0.14.0'
-	id 'org.inferred.processors' version '1.2.3'
+
+    // keep dependencies up-to-date!
+    id 'com.github.ben-manes.versions' version '0.14.0'
+
+    // useful for creating immutable java beans
+    id 'org.inferred.processors' version '1.2.3'
+
+    // for deployment to Maven Central
+    id "io.codearte.nexus-staging" version "0.6.1"
+
+    // for antlr tasks
 	id 'antlr'
 }
 
