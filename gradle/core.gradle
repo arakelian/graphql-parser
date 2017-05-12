@@ -28,7 +28,7 @@ ext {
     // useful shortcuts
     buildAliases = [
    		'all' : ['clean', 'classpath', 'build', 'install'],
-   		'deploy' : ['upload', 'closeRepository']
+   		'deploy' : ['upload', 'closeAndReleaseRepository']
     ]
 }
 
