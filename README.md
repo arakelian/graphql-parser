@@ -2,6 +2,10 @@
 
 Low-level GraphQL parser and lexer generated using ANTLR grammar.
 
+The grammar was [originally based on](https://github.com/graphql-java/graphql-java/blob/master/src/main/antlr/Graphql.g4) the GraphQL grammar defined by the [graphql-java](https://github.com/graphql-java/graphql-java) project.
+
+This project separates the lexer and parser grammars, and has additional changes to enable better runtime validation.
+
 ## Installation
 
 The library is available on Maven Central
