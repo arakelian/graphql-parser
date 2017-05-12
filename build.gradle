@@ -1,0 +1,53 @@
+// graphql-parser
+
+buildscript {
+    repositories {
+      jcenter()
+    }
+}
+
+plugins {
+	id 'java'
+	id 'maven'
+    id 'signing'
+	id 'eclipse'
+	id 'idea'
+	id 'com.github.ben-manes.versions' version '0.14.0'
+	id 'org.inferred.processors' version '1.2.3'
+	id 'antlr'
+}
+
+group   = 'com.arakelian'
+
+apply from: "gradle/core.gradle"
+
+dependencies {
+	antlr 'org.antlr:antlr4:4.7'
+    compile 'org.antlr:antlr4-runtime:4.7'
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ["src/main/java", "src/lexer/java"]
+        }
+    }
+    lexer {
+        antlr {
+            srcDirs = ['src/lexer/antlr']
+        }
+    }
+}
+
+generateGrammarSource {
+	// overwrites anything in src/main/java!
+	outputDirectory = new File(projectDir, 'src/main/java')
+	arguments += ["-visitor","-lib","src/lexer/java/com/arakelian/graphql/parser"]
+}
+
+generateLexerGrammarSource {
+	outputDirectory = new File(projectDir, 'src/lexer/java')
+}
+
+generateGrammarSource.dependsOn generateLexerGrammarSource
+
