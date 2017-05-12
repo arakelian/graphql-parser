@@ -267,7 +267,7 @@ task updateREADME() {
 		}
 
 		// commit change to README
-		'git commit README.md -m "Update README to version ' + nextVersion + '"'.execute().text.trim()
+		('git commit README.md -m "Update README to version ' + nextVersion + '"').execute().text.trim()
 	}
 }
 
