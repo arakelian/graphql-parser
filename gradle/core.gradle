@@ -262,6 +262,15 @@ task fixREADME() {
 	}
 }
 
+tag {
+    message {
+        "${project.version}"
+    }
+}
+
+tag.dependsOn(fixREADME)
+
+
 // This code allows us to define aliases, such as "all", so that when we do "gradle all",
 // we can substitute in a series of other gradle tasks
 // see: https://caffeineinduced.wordpress.com/2015/01/25/run-a-list-of-gradle-tasks-in-specific-order/
