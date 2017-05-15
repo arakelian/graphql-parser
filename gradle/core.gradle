@@ -250,9 +250,10 @@ if (project.hasProperty('nexusUsername')) {
     }
 }
 
-// replace version number in README file
+// replace version number in README file and commit the change;
+// after this command, we're ready to tag the release
 
-task updateREADME() {
+task updateReadme() {
 	doLast {
 		def nextVersion = project.version
 		if(project.version.endsWith('-SNAPSHOT')) {
@@ -262,12 +263,21 @@ task updateREADME() {
 
 		def file = new File('README.md')
 		def text = file.text
+		println "Updating README to reference version " + nextVersion
 		file.withWriter { w ->
 		  w << text.replaceAll("[0-9]+\\.[0-9]+\\.[0-9]+(-SNAPSHOT)?", nextVersion)
 		}
 
-		// commit change to README
-		('git commit README.md -m "Update README to version ' + nextVersion + '"').execute().text.trim()
+		def uncommitted = 'git status README.md --porcelain'.execute().text.trim()
+		if(uncommitted) {
+			// commit change to README
+			def cmd = ['git','commit','-m','Update README to version ' + nextVersion,'README.md']
+			def process = new ProcessBuilder(cmd).redirectErrorStream(true).start()
+			process.waitFor()
+			println process.text
+		} else {
+			println "No changes made to README"
+		}
 	}
 }
 
