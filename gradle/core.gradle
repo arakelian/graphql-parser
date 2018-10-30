@@ -2,7 +2,7 @@
 // Note: There is probably easier way to do this, maybe a Gradle plugin, but still learning Gradle.
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '3.5'
+    gradleVersion = '4.10.2'
 }
 
 tasks.withType(JavaCompile) {

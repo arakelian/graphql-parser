@@ -1,4 +1,4 @@
-// Generated from com/arakelian/graphql/parser/GraphqlParser.g4 by ANTLR 4.7
+// Generated from com/arakelian/graphql/parser/GraphqlParser.g4 by ANTLR 4.7.1
 
 // @formatter:off
 package com.arakelian.graphql.parser;
@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class GraphqlParser extends Parser {
-	static { RuntimeMetaData.checkVersion("4.7", RuntimeMetaData.VERSION); }
+	static { RuntimeMetaData.checkVersion("4.7.1", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
 	protected static final PredictionContextCache _sharedContextCache =

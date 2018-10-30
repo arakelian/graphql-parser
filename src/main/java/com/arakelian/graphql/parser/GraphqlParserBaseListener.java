@@ -1,4 +1,4 @@
-// Generated from com/arakelian/graphql/parser/GraphqlParser.g4 by ANTLR 4.7
+// Generated from com/arakelian/graphql/parser/GraphqlParser.g4 by ANTLR 4.7.1
 
 // @formatter:off
 package com.arakelian.graphql.parser;
